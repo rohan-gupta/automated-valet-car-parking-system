@@ -7,7 +7,7 @@
 - Run `pip install -r requirements.txt`
 - Run `python driver.py`
 - Commands supported by driver program
-    - *{digit} {}*
+    - *{digit} {digit}*
     - Enter
     - Exit
     - Show

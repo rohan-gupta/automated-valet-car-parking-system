@@ -9,4 +9,5 @@ class LotFactory:
         module_name = lot_type.lower() + "lot"
         class_name = lot_type.title() + "Lot"
         args = (lot_type, number)
+        # Instantiate the class using args, obtained from module
         return getattr(globals()[module_name], class_name)(*args)

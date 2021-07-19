@@ -43,7 +43,6 @@ class CarPark:
         for lot_number, lot in self.lots[lot_type].items():
             if not self.lots[lot_type][lot_number].vehicle:
                 lot_numbers_vacant.append(lot_number)
-                break
         lot_number_vacant = min(lot_numbers_vacant) if lot_numbers_vacant else -1
         return lot_number_vacant
 

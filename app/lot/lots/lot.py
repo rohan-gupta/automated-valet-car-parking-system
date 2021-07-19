@@ -1,4 +1,5 @@
 import time
+import math
 from abc import ABC, abstractmethod
 
 
@@ -30,4 +31,4 @@ class Lot(ABC):
 
 
     def parking_fee(self):
-        return self.parking_fee_rate * (self.checkout - self.checkin)
+        return self.parking_fee_rate * math.ceil((self.checkout - self.checkin)/3600)

@@ -16,7 +16,7 @@ class Lot(ABC):
     def add_vehicle(self, vehicle, timestamp):
         if vehicle.vehicle_type == self.lot_type:
             self.vehicle = vehicle
-            self.checkin = timestamp
+            self.checkin = int(timestamp)
         else:
             raise ValueError
 
@@ -24,7 +24,7 @@ class Lot(ABC):
     def remove_vehicle(self, timestamp):
         vehicle = self.vehicle
         self.vehicle = None
-        self.checkout = timestamp
+        self.checkout = int(timestamp)
         parking_fee = self.parking_fee()
         return vehicle, parking_fee
 

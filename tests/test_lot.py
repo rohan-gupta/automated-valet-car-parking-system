@@ -15,8 +15,8 @@ def test_lot():
     assert car_lot.number == 1
     assert car_lot.parking_fee_rate == 2.0
     assert parking_fee == 20.0
-    assert re.match(r"\d+\.\d+", str(car_lot.checkin))
-    assert re.match(r"\d+\.\d+", str(car_lot.checkout))
+    assert re.match(r"\d", str(car_lot.checkin))
+    assert re.match(r"\d", str(car_lot.checkout))
 
 
 def test_lot_not_allowed_vehicle_type():

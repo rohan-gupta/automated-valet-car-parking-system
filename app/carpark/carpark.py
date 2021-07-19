@@ -19,7 +19,8 @@ class CarPark:
             self.lots[lot_type] = {}
         elif lot_type not in self.allowed_vehicle_type:
             raise ValueError("Lot type not allowed")
-        lot_number = len(self.lots[lot_type]) + 1
+        # Try setting the lot number based on previous entries otherwise default to 1
+        lot_number = max(self.lots[lot_type]) + 1 if self.lots[lot_type] else 1
         lot = LotFactory.create_lot(lot_type, lot_number)
         self.lots[lot_type][lot_number] = lot
         return self.lots

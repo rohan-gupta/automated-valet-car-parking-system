@@ -36,6 +36,7 @@ class Lot(ABC):
         self.vehicle = None
         self.checkout = int(timestamp)
         parking_fee = self.calculate_parking_fee()
+        self.checkin, self.checkout = None, None
         return vehicle, parking_fee
 
 

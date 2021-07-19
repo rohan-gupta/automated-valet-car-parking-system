@@ -76,3 +76,22 @@ class CarPark:
             return status
         else:
             raise AttributeError("Vehicle not found")
+
+
+    def show_lot(self):
+        lots = []
+        for lot_type in self.lots:
+            for lot_number in self.lots[lot_type]:
+                if self.lots[lot_type][lot_number].vehicle:
+                    vehicle_type = self.lots[lot_type][lot_number].vehicle.vehicle_type
+                    vehicle_number = self.lots[lot_type][lot_number].vehicle.number
+                else:
+                    vehicle_type = None
+                    vehicle_number = None
+                lots.append({
+                    "lot_type": lot_type,
+                    "lot_number": lot_number,
+                    "vehicle_type": vehicle_type,
+                    "vehicle_number": vehicle_number
+                })
+        print(lots)

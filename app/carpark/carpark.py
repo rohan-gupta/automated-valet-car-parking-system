@@ -3,6 +3,8 @@ from app.lot.lotfactory import LotFactory
 
 
 class CarPark:
+    """Car park class that implements add/remove and fee calculation functionality."""
+    
     def __init__(self):
         self.revenue = 0.0
         self.allowed_vehicle_type = ["Car", "Motorcycle"]
@@ -11,6 +13,8 @@ class CarPark:
 
 
     def add_lot(self, lot_type):
+        """Adds lot object and checks for allowed types."""
+
         if lot_type not in self.lots and lot_type in self.allowed_vehicle_type:
             self.lots[lot_type] = {}
         elif lot_type not in self.allowed_vehicle_type:
@@ -22,6 +26,8 @@ class CarPark:
  
 
     def remove_lot(self, lot_type, lot_number):
+        """Removes lot object for a given lot type and lot number.""" 
+
         if lot_type in self.lots and lot_number in self.lots[lot_type]:
             del self.lots[lot_type][lot_number]
         else:
@@ -30,6 +36,8 @@ class CarPark:
 
 
     def get_vacant_lot(self, lot_type):
+        """Returns smallest vacant lot number if available otherwise -1."""
+
         lot_numbers_vacant = []
         for lot_number, lot in self.lots[lot_type].items():
             if not self.lots[lot_type][lot_number].vehicle:
@@ -40,6 +48,8 @@ class CarPark:
 
 
     def add_vehicle(self, vehicle_type, vehicle_number, timestamp):
+        """Returns assigned lot number to vehicle otherwise 'Reject'."""
+        
         if vehicle_number not in self.vehicles:
             vehicle = VehicleFactory.create_vehicle(vehicle_type, vehicle_number)
             lot_type = vehicle.vehicle_type
@@ -56,8 +66,13 @@ class CarPark:
 
 
     def remove_vehicle(self, vehicle_number, timestamp):
-        lot_type, lot_number = self.vehicles[vehicle_number].values()
-        vehicle, parking_lot_fee = self.lots[lot_type][lot_number].remove_vehicle(timestamp)
-        self.revenue += parking_lot_fee
-        status = f"{lot_type}Lot{lot_number}", parking_lot_fee
-        return status
+        """Returns freed lot number and parking fee otherwise raises error."""
+
+        if vehicle_number in self.vehicles:
+            lot_type, lot_number = self.vehicles[vehicle_number].values()
+            vehicle, parking_lot_fee = self.lots[lot_type][lot_number].remove_vehicle(timestamp)
+            self.revenue += parking_lot_fee
+            status = f"{lot_type}Lot{lot_number}", parking_lot_fee
+            return status
+        else:
+            raise AttributeError("Vehicle not found")

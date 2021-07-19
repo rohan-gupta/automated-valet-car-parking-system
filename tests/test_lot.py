@@ -13,8 +13,8 @@ def test_lot():
     assert isinstance(car_lot, lot.Lot)
     assert car_lot.lot_type == "Car"
     assert car_lot.number == 1
-    assert car_lot.parking_fee_rate == 2.0
-    assert parking_fee == 2.0
+    assert car_lot.parking_fee_rate == 2
+    assert parking_fee == 2
     assert re.match(r"\d", str(car_lot.checkin))
     assert re.match(r"\d", str(car_lot.checkout))
 

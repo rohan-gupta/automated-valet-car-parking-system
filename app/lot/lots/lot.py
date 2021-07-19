@@ -7,24 +7,27 @@ class Lot(ABC):
     def __init__(self, lot_type, number):
         self.lot_type = str(lot_type)
         self.number = int(number)
-        self.allowed_vehicle_type = None
-        self.fee = None
+        self.parking_fee_rate = None
         self.vehicle = None
         self.checkin = None
         self.checkout = None
 
 
-    def add_vehicle(self, vehicle):
-        if vehicle.vehicle_type == self.allowed_vehicle_type:
+    def add_vehicle(self, vehicle, timestamp):
+        if vehicle.vehicle_type == self.lot_type:
             self.vehicle = vehicle
-            self.checkin = time.time()
+            self.checkin = timestamp
         else:
             raise ValueError
 
 
-    def remove_vehicle(self):
+    def remove_vehicle(self, timestamp):
         vehicle = self.vehicle
         self.vehicle = None
-        self.checkout = time.time()
-        return vehicle
+        self.checkout = timestamp
+        parking_fee = self.parking_fee()
+        return vehicle, parking_fee
 
+
+    def parking_fee(self):
+        return self.parking_fee_rate * (self.checkout - self.checkin)
